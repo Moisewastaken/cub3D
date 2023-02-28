@@ -1,28 +1,35 @@
 #include "cub3d.h"
 
-t_vec	new_vec(double x, double y)
+t_point	new_point(double x, double y)
+{
+	t_point	new_point;
+
+	new_point.x = x;
+	new_point.y = y;
+	return (new_point);
+}
+
+t_vec	new_vec(t_point pos, t_point dir)
 {
 	t_vec	new_vec;
 
-	new_vec.x = x;
-	new_vec.y = y;
+	new_vec.dir = new_point(dir.x, dir.y);
+	new_vec.pos = new_point(pos.x, pos.y);
 	return (new_vec);
 }
 
-t_ray	new_ray(double dir_x, double dir_y, double pos_x, double pos_y)
+t_int_point	new_int_point(int	x, int y)
 {
-	t_ray	new_ray;
-
-	new_ray.dir = new_vec(dir_x, dir_y);
-	new_ray.pos = new_vec(pos_x, pos_y);
-	return (new_ray);
-}
-
-t_pos	new_pos(int	x, int y)
-{
-	t_pos	new;
+	t_int_point	new;
 
 	new.x = x;
 	new.y = y;
 	return (new);
+}
+
+void	rotate_dir(t_main *main, double rot_speed)
+{
+	double oldDirX = main->player.dir.x;
+	main->player.dir.x = main->player.dir.x * cos(rot_speed) - main->player.dir.y * sin(rot_speed);
+	main->player.dir.y = oldDirX * sin(rot_speed) + main->player.dir.y * cos(rot_speed);
 }

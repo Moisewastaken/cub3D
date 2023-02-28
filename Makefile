@@ -6,7 +6,7 @@
 #    By: mcochin <mcochin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 13:54:33 by mcochin           #+#    #+#              #
-#    Updated: 2023/02/20 19:16:53 by mcochin          ###   ########.fr        #
+#    Updated: 2023/02/27 17:07:42 by mcochin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = cub3d
 SRCS = src/main.c \
 		src/vectors.c \
 		src/image.c \
-		src/loop.c
+		src/loop.c \
+		src/draw.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft
