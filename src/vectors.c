@@ -29,7 +29,9 @@ t_int_point	new_int_point(int	x, int y)
 
 void	rotate_dir(t_main *main, double rot_speed)
 {
-	double oldDirX = main->player.dir.x;
+	double old_dir_x;
+
+	old_dir_x = main->player.dir.x;
 	main->player.dir.x = main->player.dir.x * cos(rot_speed) - main->player.dir.y * sin(rot_speed);
-	main->player.dir.y = oldDirX * sin(rot_speed) + main->player.dir.y * cos(rot_speed);
+	main->player.dir.y = old_dir_x * sin(rot_speed) + main->player.dir.y * cos(rot_speed);
 }

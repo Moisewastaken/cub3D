@@ -34,6 +34,15 @@ typedef struct	s_img
 	int		endian;
 }t_img;
 
+typedef struct	s_ray
+{
+	t_vec		vec;
+	t_int_point map_pos;
+	t_int_point steps;
+	t_point		side_dist;
+	t_point		delta_dist;
+}t_ray;
+
 typedef struct	s_main
 {
 	mlx_t		*mlx;
@@ -41,6 +50,7 @@ typedef struct	s_main
 	t_vec		player;
 	int			scrn_x;
 	int			scrn_y;
+	int			cell_size;
 }t_main;
 
 
@@ -50,9 +60,10 @@ int		main(void);
 
 // ----------------------  VECTORS.C ----------------------
 
-t_vec	new_vec(t_point pos, t_point dir);
-t_point	new_point(double x, double y);
-void	rotate_dir(t_main *main, double rot_speed);
+t_vec		new_vec(t_point pos, t_point dir);
+t_point		new_point(double x, double y);
+t_int_point	new_int_point(int	x, int y);
+void		rotate_dir(t_main *main, double rot_speed);
 
 // ----------------------  IMAGE.C ----------------------
 
@@ -61,6 +72,7 @@ void	pxl_put(mlx_image_t *img, int x, int y, int color);
 // ----------------------  LOOP.C ----------------------
 
 void	game_loop(void *arg);
+void	point_dda(t_main *main);
 
 // ----------------------  DRAW.C ----------------------
 void	draw_map(t_main *main);
