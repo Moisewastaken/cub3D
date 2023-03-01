@@ -72,13 +72,13 @@ void	draw_map(t_main *main)
 void	key_hooks(t_main *main)
 {
 	if (mlx_is_key_down(main->mlx, MLX_KEY_LEFT))
-		main->player.pos.x -= 2;
+		main->player.pos.x -= 0.1;
 	if (mlx_is_key_down(main->mlx, MLX_KEY_RIGHT))
-		main->player.pos.x += 2;
+		main->player.pos.x += 0.1;
 	if (mlx_is_key_down(main->mlx, MLX_KEY_UP))
-		main->player.pos.y -= 2;
+		main->player.pos.y -= 0.1;
 	if (mlx_is_key_down(main->mlx, MLX_KEY_DOWN))
-		main->player.pos.y += 2;
+		main->player.pos.y += 0.1;
 	if (mlx_is_key_down(main->mlx, MLX_KEY_A))
 		rotate_dir(main, -0.1);
 	if (mlx_is_key_down(main->mlx, MLX_KEY_D))
@@ -125,11 +125,10 @@ void	point_dda(t_main *main)
 {
 	t_ray	ray;
 	int		hit;
-	t_point	dist;
+	double	dist;
 
 	hit = 0;
 	ray.map_pos = new_int_point((int)main->player.pos.x, (int)main->player.pos.y);
-	// printf("%d\n%d\n", ray.map_pos.x, ray.map_pos.y);
 	ray.vec = new_vec(new_point(main->player.pos.x, main->player.pos.y)
 		, new_point(main->player.dir.x, main->player.dir.y));
 	get_delta(&ray);
@@ -138,22 +137,22 @@ void	point_dda(t_main *main)
 	{
 		if (ray.side_dist.x < ray.side_dist.y)
 		{
-			dist.x = ray.side_dist.x;
+			dist = ray.side_dist.x;
 			ray.side_dist.x += ray.delta_dist.x;
 			ray.map_pos.x += ray.steps.x;
 		}
 		else
 		{
-			dist.y = ray.side_dist.y;
+			dist = ray.side_dist.y;
 			ray.side_dist.y += ray.delta_dist.y;
 			ray.map_pos.y += ray.steps.y;
 		}
-		printf("%f\n", dist.x);
+		// printf("%f\n", dist.x);
 		pxl_put(main->img, ray.map_pos.x * main->cell_size, ray.map_pos.y * main->cell_size, 0xFF00FFFF);
 		if (worldMap[ray.map_pos.y][ray.map_pos.x])
 			hit = 1;
 	}
-	pxl_put(main->img, (int)ray.vec.pos.x + ray.vec.dir.x * dist.x * main->cell_size, (int)ray.vec.pos.y + ray.vec.dir.y * dist.y * main->cell_size, 0xFF0000FF);
+	pxl_put(main->img, (int)(ray.vec.pos.x + ray.vec.dir.x * dist * main->cell_size), (int)(ray.vec.pos.y + ray.vec.dir.y * dist * main->cell_size), 0xFF0000FF);
 }
 
 void	game_loop(void *arg)

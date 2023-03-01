@@ -7,11 +7,11 @@ void	draw_player(t_main *main)
 	int	cell_size;
 
 	cell_size = main->scrn_x / 24;
-	i = (int)main->player.pos.x * cell_size - 8;
-	while (i < (int)main->player.pos.x * cell_size + 8)
+	i = (int)(main->player.pos.x * cell_size - 8);
+	while (i < (int)(main->player.pos.x * cell_size + 8))
 	{
-		j = (int)main->player.pos.y * cell_size - 8;
-		while (j < (int)main->player.pos.y * cell_size + 8)
+		j = (int)(main->player.pos.y * cell_size - 8);
+		while (j < (int)(main->player.pos.y * cell_size + 8))
 		{
 			pxl_put(main->img, i, j, 0xFF0000FF);
 			j++;

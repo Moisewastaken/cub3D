@@ -16,7 +16,7 @@ int	main(void)
 	t_main	main;
 
 	init_all(&main);
-	// mlx_loop_hook(main.mlx, game_loop, &main);
+	mlx_loop_hook(main.mlx, game_loop, &main);
 	draw_map(&main);
 	draw_player(&main);
 	mlx_image_to_window(main.mlx, main.img, 0, 0);
