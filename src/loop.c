@@ -80,9 +80,9 @@ void	key_hooks(t_main *main)
 	if (mlx_is_key_down(main->mlx, MLX_KEY_DOWN))
 		main->player.pos.y += 0.1;
 	if (mlx_is_key_down(main->mlx, MLX_KEY_A))
-		rotate_dir(main, -0.1);
+		rotate_dir(main, -0.01);
 	if (mlx_is_key_down(main->mlx, MLX_KEY_D))
-		rotate_dir(main, 0.1);
+		rotate_dir(main, 0.01);
 }
 
 void	get_delta(t_ray *ray)
@@ -125,11 +125,9 @@ void	point_dda(t_main *main)
 {
 	t_ray	ray;
 	int		hit;
-	int		side;
 	double	dist;
 
 	hit = 0;
-	(void)side;
 	ray.map_pos = new_int_point((int)main->player.pos.x, (int)main->player.pos.y);
 	ray.vec = new_vec(new_point(main->player.pos.x, main->player.pos.y)
 		, new_point(main->player.dir.x, main->player.dir.y));
@@ -142,38 +140,20 @@ void	point_dda(t_main *main)
 			dist = ray.side_dist.x;
 			ray.side_dist.x += ray.delta_dist.x;
 			ray.map_pos.x += ray.steps.x;
-			side = 1;
 		}
 		else
 		{
 			dist = ray.side_dist.y;
 			ray.side_dist.y += ray.delta_dist.y;
 			ray.map_pos.y += ray.steps.y;
-			side = 0;
 		}
-		pxl_put(main->img, ray.map_pos.x * main->cell_size, ray.map_pos.y * main->cell_size, 0xFF0000FF);
 		if (worldMap[ray.map_pos.y][ray.map_pos.x])
 			hit = 1;
+		pxl_put(main->img, ray.map_pos.x * main->cell_size, ray.map_pos.y * main->cell_size, 0xFFFFFFFF);
 	}
-
 	t_int_point intersection;
-
-	// if (side)
-	// {
-		intersection =  new_int_point((ray.vec.pos.x + ray.vec.dir.x) * dist, (ray.vec.pos.y + ray.vec.dir.y) * dist);
-		draw_line(main, new_int_point(main->player.pos.x * main->cell_size, main->player.pos.y * main->cell_size), new_int_point(intersection.x * main->cell_size, intersection.y * main->cell_size));
-	// }
-	// else
-	// {
-	// 	intersection =  new_int_point((ray.vec.pos.x + ray.vec.dir.x) * ray.side_dist.y, (ray.vec.pos.y + ray.vec.dir.y) * ray.side_dist.y);
-	// 	draw_line(main, new_int_point(main->player.pos.x * main->cell_size, main->player.pos.y * main->cell_size), intersection);
-	// }
-	// if (!side)
-	// 	draw_line(main, new_int_point(main->player.pos.x * main->cell_size, main->player.pos.y * main->cell_size)
-	// 	,new_int_point(main->player.pos.x + main->player.dir.x * ray.side_dist.x, main->player.pos.y + main->player.dir.y * ray.side_dist.x));
-	// else
-	// 	draw_line(main, new_int_point(main->player.pos.x * main->cell_size, main->player.pos.y * main->cell_size)
-	// 	,new_int_point(main->player.pos.x + main->player.dir.x * ray.side_dist.y, main->player.pos.y + main->player.dir.y * ray.side_dist.y));
+	intersection =  new_int_point(fabs(ray.vec.pos.x + ray.vec.dir.x * dist), fabs(ray.vec.pos.y + ray.vec.dir.y * dist));
+	draw_line(main, new_int_point(main->player.pos.x * main->cell_size, main->player.pos.y * main->cell_size), new_int_point(intersection.x * main->cell_size, intersection.y * main->cell_size));
 }
 
 void	game_loop(void *arg)

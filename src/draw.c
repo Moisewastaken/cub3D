@@ -18,6 +18,8 @@ void	draw_player(t_main *main)
 		}
 		i++;
 	}
+	draw_line(main, new_int_point(main->player.pos.x, main->player.pos.y)
+	, new_int_point(main->player.pos.x + main->player.dir.x * 10, main->player.pos.y + main->player.dir.y * 10)); 
 }
 
 void draw_line(t_main *main, t_int_point start, t_int_point end)
