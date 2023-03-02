@@ -47,12 +47,12 @@ typedef struct	s_main
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	int			**map;
 	t_vec		player;
 	int			scrn_x;
 	int			scrn_y;
 	int			cell_size;
 }t_main;
-
 
 // ----------------------  MAIN.C ----------------------
 
@@ -72,11 +72,16 @@ void	pxl_put(mlx_image_t *img, int x, int y, int color);
 // ----------------------  LOOP.C ----------------------
 
 void	game_loop(void *arg);
+
+// ----------------------  RAYCASTING.C ----------------------
 void	point_dda(t_main *main);
 
 // ----------------------  DRAW.C ----------------------
 void	draw_map(t_main *main);
 void	draw_player(t_main *main);
 void	draw_line(t_main *main, t_int_point start, t_int_point end);
+
+// ----------------------  HOOKS.C ----------------------
+void	key_hooks(t_main *main);
 
 #endif

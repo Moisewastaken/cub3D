@@ -1,5 +1,45 @@
 #include "cub3d.h"
 
+static void	draw_wall(t_main *main, int x, int y, int color)
+{
+	int	i;
+	int	j;
+	int	cell_size;
+
+	i = 0;
+	cell_size = main->scrn_x / 24;
+	while (i < cell_size)
+	{
+		j = 0;
+		while (j < cell_size)
+		{
+			pxl_put(main->img, y * cell_size + i, x * cell_size + j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_map(t_main *main)
+{
+	int		x;
+	int		y;
+
+	x = 0;
+	while (x < 24)
+	{
+		y = 0;
+		while (y < 24)
+		{
+			if (main->map[x][y])
+				draw_wall(main, x, y, 0xFF00FFFF);
+			else
+				draw_wall(main, x, y, 0); 
+			y++;
+		}
+		x++;
+	} 
+}
 void	draw_player(t_main *main)
 {
 	int	i;
