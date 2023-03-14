@@ -6,19 +6,25 @@
 #    By: mcochin <mcochin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 13:54:33 by mcochin           #+#    #+#              #
-#    Updated: 2023/03/02 10:40:54 by mcochin          ###   ########.fr        #
+#    Updated: 2023/03/09 10:54:34 by mcochin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 SRCS = src/main.c \
-		src/vectors.c \
-		src/image.c \
-		src/loop.c \
-		src/draw.c \
 		src/hooks.c \
-		src/raycasting.c
+		src/renderer/vectors.c \
+		src/renderer/image.c \
+		src/renderer/loop.c \
+		src/renderer/draw.c \
+		src/renderer/raycasting.c \
+		src/renderer/texturing.c \
+		src/parsing/parsing.c \
+		src/parsing/get_file_content.c \
+		src/parsing/check_map.c \
+		src/parsing/get_map.c \
+		src/parsing/get_textures.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft
@@ -27,8 +33,8 @@ MLX = mlx
 MLXPATH = mlx/libmlx42.a
 
 CC = gcc
-INC = -Iinclude -Imlx/include/MLX42
-CFLAGS = -Werror -Wall -Wextra -g
+INC = -Ilibft -Iinclude -Imlx/include/MLX42
+CFLAGS = -Werror -Wall -Wextra -g #-Ofast
 MLXFLAGS = -ldl -lglfw -pthread -lm -Lmlx #-lmlx42m
 RM = rm -f
 MAKE = make -C
@@ -48,8 +54,8 @@ $(MLXPATH) :
 	@$(MAKE) $(MLX) -s
 
 clean :
-	@$(RM) $(OBJS) fractol.so
-	@$(RM) $(OBJSB) fractol_bonus.so
+	@$(RM) $(OBJS)
+	@$(RM) $(OBJSB)
 	@$(MAKE) $(LIBFT) clean
 	@$(MAKE) $(MLX) clean
 
