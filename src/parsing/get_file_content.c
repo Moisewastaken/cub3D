@@ -19,6 +19,8 @@ static int	get_nb_lines_fd(char *file_name)
 	int		fd;
 
 	fd = open(file_name, O_RDONLY);
+	if (fd <= -1)
+		return (-1);
 	nb_lines = 0;
 	str = get_next_line(fd);
 	while (str)
@@ -56,11 +58,15 @@ char	**get_file_content(char *file_name)
 {
 	int		i;
 	int		fd;
+	int		nb_lines;
 	char	*str;
 	char	**file_content;
 
 	i = 1;
-	file_content = malloc(sizeof(char *) * get_nb_lines_fd(file_name));
+	nb_lines = get_nb_lines_fd(file_name);
+	if (nb_lines <= 0)
+		return (NULL);
+	file_content = malloc(sizeof(char *) * nb_lines);
 	if (!file_content)
 		return (NULL);
 	fd = open(file_name, O_RDONLY);

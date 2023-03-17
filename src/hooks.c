@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcochin <mcochin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 18:44:27 by mcochin           #+#    #+#             */
+/*   Updated: 2023/03/15 18:44:27 by mcochin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	rotate_dir(t_main *main, double rot_speed)
@@ -46,9 +58,9 @@ void	key_hooks(t_main *main)
 	if (mlx_is_key_down(main->mlx, MLX_KEY_D))
 		move_player(main, main->cam_plane.x, main->cam_plane.y);
 	if (mlx_is_key_down(main->mlx, MLX_KEY_LEFT))
-		rotate_dir(main, -0.05);
+		rotate_dir(main, -0.03);
 	if (mlx_is_key_down(main->mlx, MLX_KEY_RIGHT))
-		rotate_dir(main, 0.05);
+		rotate_dir(main, 0.03);
 	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(main->mlx);
 }

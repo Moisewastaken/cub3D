@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcochin <mcochin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 18:43:23 by mcochin           #+#    #+#             */
+/*   Updated: 2023/03/15 18:43:23 by mcochin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-char	get_player_pos(t_main *main, char **map)
+static char	get_player_pos(t_main *main, char **map)
 {
 	int		i;
 	int		j;
@@ -25,7 +37,7 @@ char	get_player_pos(t_main *main, char **map)
 	return (0);
 }
 
-void	init_player(t_main *main, char **map)
+static void	init_player(t_main *main, char **map)
 {
 	char	c;
 
@@ -61,10 +73,13 @@ void	init_all(t_main *main, char **argv)
 	main->map = parsing(&main->text, argv[1]);
 	init_player(main, main->map);
 	main->map[(int)main->player.pos.y][(int)main->player.pos.x] = '0';
-	main->map_size = get_map_size(main->map);
-	main->cell_size = main->scrn_x / main->map_size;
+	main->map_size.x = ft_strlen(main->map[0]);
+	main->map_size.y = ft_arrlen(main->map);
+	main->cell_size = main->scrn_x / get_size_max(main->map);
 	main->img = mlx_new_image(main->mlx, main->scrn_x, main->scrn_y);
+	main->minimap = mlx_new_image(main->mlx, 200, 200);
 	mlx_image_to_window(main->mlx, main->img, 0, 0);
+	mlx_image_to_window(main->mlx, main->minimap, 10, 10);
 }
 
 int	main(int argc, char **argv)

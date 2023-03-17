@@ -24,7 +24,8 @@ SRCS = src/main.c \
 		src/parsing/get_file_content.c \
 		src/parsing/check_map.c \
 		src/parsing/get_map.c \
-		src/parsing/get_textures.c
+		src/parsing/get_textures.c \
+		src/parsing/utils.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft

@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texturing.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcochin <mcochin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 18:44:22 by mcochin           #+#    #+#             */
+/*   Updated: 2023/03/15 18:44:22 by mcochin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static mlx_image_t	*get_cur_text(t_main *main, t_ray *ray)
 {
 	if (ray->hit_side && ray->vec.dir.x < 0.0)
-		return (main->text.north);
+		return (main->text.west);
 	if (ray->hit_side && ray->vec.dir.x > 0.0)
 		return (main->text.east);
 	if (!ray->hit_side && ray->vec.dir.y < 0.0)
 		return (main->text.south);
 	if (!ray->hit_side && ray->vec.dir.y > 0.0)
-		return (main->text.west);
+		return (main->text.north);
 	return (NULL);
 }
 

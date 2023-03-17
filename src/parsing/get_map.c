@@ -6,7 +6,7 @@
 /*   By: mcochin <mcochin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:20:07 by twinters          #+#    #+#             */
-/*   Updated: 2023/03/09 17:27:42 by mcochin          ###   ########.fr       */
+/*   Updated: 2023/03/15 18:45:14 by mcochin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ static bool	is_map_line(char *str)
 	return (true);
 }
 
-int	ft_arrlen(char **array)
+static int	maplen(char **file)
 {
 	int	i;
 
 	i = 0;
-	while (array[i])
+	while (file[i + 1])
 		i++;
-	return (i);
+	while (!file[i][0])
+		i--;
+	return (i + 1);
 }
 
 static int	get_longest_line(char **array)
@@ -93,12 +95,14 @@ char	**get_map(char **file_content)
 
 	i = 0;
 	j = 0;
-	while (!is_map_line(file_content[i]))
+	while (file_content[i] && !is_map_line(file_content[i]))
 		i++;
-	nb_lines = ft_arrlen(file_content + i);
+	if (!file_content[i])
+		return (NULL);
+	nb_lines = maplen(file_content + i);
 	longest_line = get_longest_line(file_content + i);
 	map = malloc(sizeof(char *) * (nb_lines + 1));
-	while (file_content[i + j] && file_content[i + j][0])
+	while (j < nb_lines)
 	{
 		map[j] = get_map_line(file_content[i + j], longest_line);
 		j++;
